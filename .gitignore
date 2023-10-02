@@ -271,3 +271,9 @@ pip-selfcheck.json
 #web 
 *.html
 *.json
+
+
+#outros
+*.Identifier
+*:Zone.Identifier
+images/

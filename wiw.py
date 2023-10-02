@@ -2,9 +2,10 @@ import exifread
 import folium
 import json
 import os
-import webbrowser
 from tqdm import tqdm
+from functools import cache
 
+@cache
 def extract_location_info(file_path):
     # Abre o arquivo da imagem em modo de leitura binária
     with open(file_path, 'rb') as image_file:
@@ -81,14 +82,6 @@ def main():
     # Salva os mapas em arquivos HTML
     map_standard.save('map.html')
     map_satellite.save('map_satellite.html')
-
-    # Tenta abrir o mapa no navegador
-    try:
-        webbrowser.open('map.html')
-    except Exception as e:
-        error_message = f'Erro ao abrir o navegador: {e}'
-        print(error_message)
-        print('Por favor, abra o arquivo "map.html" em seu navegador manualmente.')
 
 if __name__ == "__main__":
     main()
