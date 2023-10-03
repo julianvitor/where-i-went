@@ -1,24 +1,6 @@
-import exifread
-import folium
-import json
-import os
+import exifread, folium, json, os, time
 from tqdm import tqdm
 from functools import cache
-
-# Função para converter coordenadas de graus, minutos e segundos para decimal
-def convert_to_decimal(coord_values):
-    return float(coord_values[0].num) / float(coord_values[0].den) + \
-           float(coord_values[1].num) / (float(coord_values[1].den) * 60) + \
-           float(coord_values[2].num) / (float(coord_values[2].den) * 3600)
-
-# Função para ajustar as coordenadas para valores negativos, se necessário
-def adjust_coordinates(latitude, longitude, latitude_ref, longitude_ref):
-    if latitude_ref == 'S':
-        latitude = -latitude
-    if longitude_ref == 'W':
-        longitude = -longitude
-    return latitude, longitude
-
 # Função para extrair informações de localização de uma imagem
 @cache
 def extract_location_info(file_path):
@@ -37,6 +19,21 @@ def extract_location_info(file_path):
     else:
         return None
 
+# Função para converter coordenadas de graus, minutos e segundos para decimal
+def convert_to_decimal(coord_values):
+    return float(coord_values[0].num) / float(coord_values[0].den) + \
+           float(coord_values[1].num) / (float(coord_values[1].den) * 60) + \
+           float(coord_values[2].num) / (float(coord_values[2].den) * 3600)
+
+# Função para ajustar as coordenadas para valores negativos, se necessário
+def adjust_coordinates(latitude, longitude, latitude_ref, longitude_ref):
+    if latitude_ref == 'S':
+        latitude = -latitude
+    if longitude_ref == 'W':
+        longitude = -longitude
+    return latitude, longitude
+
+
 # Função para criar um mapa com marcadores
 def create_map(location_data, map_type):
     m = folium.Map(location=[0, 0], zoom_start=2)
@@ -50,6 +47,8 @@ def create_map(location_data, map_type):
 
 # Função principal
 def main():
+    start_time = time.time()
+    
     # Pasta contendo as imagens
     image_folder = 'images'
 
@@ -73,6 +72,9 @@ def main():
     # Cria mapas
     create_map(location_data, 'standard')
     create_map(location_data, 'satellite')
-
+    
+    end_time = time.time()
+    execution_time = end_time - start_time
+    print(f"Tempo de execução: {execution_time:.2f} segundos")
 if __name__ == "__main__":
     main()
