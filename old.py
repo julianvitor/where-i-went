@@ -1,7 +1,6 @@
-import exifread,folium,json,os,time,coord_converter
+import exifread, folium, json, os, time
 from tqdm import tqdm
 from functools import cache
-
 # Função para extrair informações de localização de uma imagem
 @cache
 def extract_location_info(file_path):
@@ -9,13 +8,8 @@ def extract_location_info(file_path):
         tags = exifread.process_file(image_file)
 
     if 'GPS GPSLatitude' in tags and 'GPS GPSLongitude' in tags:
-        latitude_values = tags['GPS GPSLatitude'].values
-        longitude_values = tags['GPS GPSLongitude'].values
-
-        # Converta latitude e longitude usando o módulo em C
-        latitude = coord_converter.convert_coordinates(tuple(float(val) for val in latitude_values))
-        longitude = coord_converter.convert_coordinates(tuple(float(val) for val in longitude_values))
-
+        latitude = convert_to_decimal(tags['GPS GPSLatitude'].values)
+        longitude = convert_to_decimal(tags['GPS GPSLongitude'].values)
         latitude_ref = tags['GPS GPSLatitudeRef'].values
         longitude_ref = tags['GPS GPSLongitudeRef'].values
 
@@ -25,15 +19,20 @@ def extract_location_info(file_path):
     else:
         return None
 
+# Função para converter coordenadas de graus, minutos e segundos para decimal
+def convert_to_decimal(coord_values):
+    return float(coord_values[0].num) / float(coord_values[0].den) + \
+           float(coord_values[1].num) / (float(coord_values[1].den) * 60) + \
+           float(coord_values[2].num) / (float(coord_values[2].den) * 3600)
+
 # Função para ajustar as coordenadas para valores negativos, se necessário
 def adjust_coordinates(latitude, longitude, latitude_ref, longitude_ref):
-    # Verifique se latitude e longitude precisam ser negadas com base nos valores de referência
     if latitude_ref == 'S':
         latitude = -latitude
     if longitude_ref == 'W':
         longitude = -longitude
-
     return latitude, longitude
+
 
 # Função para criar um mapa com marcadores
 def create_map(location_data, map_type):
@@ -51,12 +50,11 @@ def create_map(location_data, map_type):
             longitude = location_info['longitude']
             folium.Marker((latitude, longitude), popup=image_path).add_to(m)
         m.save(f'map_{map_type}.html')
-    
 
 # Função principal
 def main():
     start_time = time.time()
-
+    
     # Pasta contendo as imagens
     image_folder = 'images'
 
@@ -73,17 +71,16 @@ def main():
             latitude, longitude = location_info
             location_data[image_path] = {'latitude': latitude, 'longitude': longitude}
 
-    # Salve os dados em um arquivo JSON
+    # Salva os dados em um arquivo JSON
     with open('location_data.json', 'w') as json_file:
         json.dump(location_data, json_file, indent=4)
 
-    # Crie mapas
-    create_map(location_data, "standard")
-    create_map(location_data, "satellite")
-
+    # Cria mapas
+    create_map(location_data, 'standard')
+    create_map(location_data, 'satellite')
+    
     end_time = time.time()
     execution_time = end_time - start_time
     print(f"Tempo de execução: {execution_time:.2f} segundos")
-
 if __name__ == "__main__":
     main()
