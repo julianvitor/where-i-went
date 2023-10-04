@@ -34,7 +34,7 @@
 
 # Portable Network Graphics
 *.png
-
+!exemplo.png
 # Animated Portable Network Graphics
 *.apng
 
