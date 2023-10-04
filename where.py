@@ -1,5 +1,5 @@
 import exifread, folium, os, sys
-from . import coord_converter
+import coord_converter
 from functools import cache
 
 # Função para extrair informações de localização de uma imagem
