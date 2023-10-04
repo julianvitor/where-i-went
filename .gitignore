@@ -9,7 +9,7 @@
 *.jif
 *.jfif
 *.jfi
-
+!test.jpg
 # JPEG 2000
 *.jp2
 *.j2k

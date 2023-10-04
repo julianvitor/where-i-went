@@ -38,6 +38,7 @@ def extrair_informacoes_localizacao(caminho_arquivo):
         return None
 
 # Função para ajustar as coordenadas para valores negativos, se necessário
+@cache
 def ajustar_coordenadas(latitude, longitude, referencia_latitude, referencia_longitude):
     # Verifique se latitude e longitude precisam ser negadas com base nos valores de referência
     if referencia_latitude == 'S':
@@ -64,23 +65,18 @@ def criar_mapa(dados_localizacao, tipo_mapa):
             folium.Marker((latitude, longitude), popup=caminho_arquivo).add_to(m)
         m.save(f'mapa_{tipo_mapa}.html')
 
-# Função principal
 def main():
     tempo_inicio = time.time()
-
-    # Pasta contendo as imagens
     pasta_imagens = 'images'
-
-    # Lista para armazenar os caminhos das imagens, excluindo arquivos não suportados
+    dados_localizacao = {}
     extensoes_suportadas = ('.jpg', '.jpeg')
+    # Lista para armazenar os caminhos das imagens, excluindo arquivos não suportados
     caminhos_imagens = [
         os.path.join(pasta_imagens, nome_arquivo)
         for nome_arquivo in os.listdir(pasta_imagens)
         if nome_arquivo.lower().endswith(extensoes_suportadas)
     ]
-    # Dicionário para armazenar os dados de localização
-    dados_localizacao = {}
-
+   
     # Use tqdm para criar uma única barra de progresso que abranja todo o processo
     with tqdm(total=len(caminhos_imagens), desc='Processando imagens') as barra_progresso:
         for caminho_arquivo in caminhos_imagens:
