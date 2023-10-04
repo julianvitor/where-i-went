@@ -33,6 +33,7 @@ Uso da Biblioteca
 A aplicação original Where-I-Went está disponível no arquivo app.py. Você pode usá-lo como referência para aprender como usar a Where-I-Went Library em seus próprios projetos.
 
 Certifique-se de ter uma pasta chamada "images" no mesmo diretório do seu projeto e adicione suas imagens JPEG nessa pasta. A partir daí, você pode importar as funções da biblioteca e usá-las para extrair informações de geolocalização e criar mapas interativos com base nas suas imagens.
+![Exemplo](https://raw.githubusercontent.com/julianvitor/where-i-went/main/static/exemplo.png)
 
 Divirta-se explorando o mundo com a Where-I-Went Library!
 
