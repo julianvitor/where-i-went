@@ -1,8 +1,10 @@
 from setuptools import setup, find_packages
+import os
+long_description = open("README.md").read()
 
 setup(
-    name='where',
-    version='0.1',
+    name='where_i_went',
+    version='0.1.4',
     packages=find_packages(),
     install_requires=[
         'exifread',
@@ -20,4 +22,8 @@ setup(
         'tqdm==4.66.1',
         'urllib3==2.0.4',
     ],
+    package_data={'': ['coord_converter.so']},  # Garanta que o .so seja empacotado corretamente
+    long_description=long_description,
+    long_description_content_type='text/markdown',
 )
+

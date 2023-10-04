@@ -36,6 +36,8 @@ Certifique-se de ter uma pasta chamada "images" no mesmo diretório do seu proje
 
 Divirta-se explorando o mundo com a Where-I-Went Library!
 
+[Where-I-Went](https://github.com/julianvitor/where-i-went)
+
 ***
 
 # Where-I-Went Library
@@ -75,3 +77,5 @@ The original Where-I-Went application is available in the app.py file. You can u
 Make sure you have a folder named "images" in the same directory as your project and add your JPEG images to that folder. From there, you can import the library's functions and use them to extract geolocation information and create interactive maps based on your images.
 
 Enjoy exploring the world with the Where-I-Went Library!
+
+[Where-I-Went](https://github.com/julianvitor/where-i-went)
