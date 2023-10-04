@@ -36,6 +36,8 @@ Certifique-se de ter uma pasta chamada "images" no mesmo diretório do seu proje
 
 Divirta-se explorando o mundo com a Where-I-Went Library!
 
+![exemplo](https://raw.githubusercontent.com/julianvitor/where-i-went/main/static/exemplo.png)
+
 [Where-I-Went](https://github.com/julianvitor/where-i-went)
 
 ***
