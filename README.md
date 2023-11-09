@@ -11,8 +11,9 @@ A Where-I-Went Library fornece as seguintes funções:
 - Retorna um dicionário com as informações de latitude e longitude, ou None se as informações não estiverem disponíveis na imagem.
 
 ### `ajustar_coordenadas(latitude, longitude, referencia_latitude, referencia_longitude)`
-- Esta função ajusta as coordenadas de latitude e longitude com base nas referências (N, S, E, W) fornecidas.
+- Esta função ajusta as coordenadas de latitude e longitude com base nas referências (W, S) fornecidas.
 - Retorna as coordenadas de latitude e longitude ajustadas.
+- Ex: ajustar_coordenadas(latitude, longitude, 'S', 'W') -> latitude = -latitude , longitude = -longitude
 
 ### `criar_mapa(dados_localizacao, tipo_mapa)`
 - Esta função cria mapas interativos com marcadores com base nos dados de geolocalização fornecidos.
@@ -55,8 +56,9 @@ The Where-I-Went Library provides the following functions:
 - It returns a dictionary with latitude and longitude information, or None if the information is not available in the image.
 
 ### `ajustar_coordenadas(latitude, longitude, referencia_latitude, referencia_longitude)`
-- This function adjusts latitude and longitude coordinates based on the provided references (N, S, E, W).
+- This function adjusts latitude and longitude coordinates based on the provided references (S,N).
 - It returns the adjusted latitude and longitude coordinates.
+- Ex: ajustar_coordenadas(latitude, longitude, 'S', 'W') -> latitude = -latitude , longitude = -longitude
 
 ### `criar_mapa(dados_localizacao, tipo_mapa)`
 - This function creates interactive maps with markers based on geolocation data provided.
