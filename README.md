@@ -7,18 +7,26 @@ A Where-I-Went Library é uma biblioteca Python que permite extrair informaçõe
 A Where-I-Went Library fornece as seguintes funções:
 
 ### `extrair_informacoes_localizacao(caminho_arquivo)`
-- Esta função extrai informações de geolocalização de uma imagem JPEG dada o caminho do arquivo.
+- Esta função extrai informações de geolocalização de uma imagem JPEG dada o caminho_arquivo (uma string representando o caminho do arquivo de imagem).
 - Retorna um dicionário com as informações de latitude e longitude, ou None se as informações não estiverem disponíveis na imagem.
 
 ### `ajustar_coordenadas(latitude, longitude, referencia_latitude, referencia_longitude)`
 - Esta função ajusta as coordenadas de latitude e longitude com base nas referências (W, S) fornecidas.
-- Retorna as coordenadas de latitude e longitude ajustadas.
+- Parâmetros de entrada:
+latitude (um float representando a latitude).
+longitude (um float representando a longitude).
+referencia_latitude (uma string que pode ser "N" ou "S" para indicar a direção da latitude).
+referencia_longitude (uma string que pode ser "E" ou "W" para indicar a direção da longitude).
+- Valor de retorno:
+A função retorna um par de coordenadas (latitude e longitude) como uma tupla de floats após ajustar os valores com base nas referências (Norte/Sul e Leste/Oeste).
 - Ex: ajustar_coordenadas(latitude, longitude, 'S', 'W') -> latitude = -latitude , longitude = -longitude
 
 ### `criar_mapa(dados_localizacao, tipo_mapa)`
 - Esta função cria mapas interativos com marcadores com base nos dados de geolocalização fornecidos.
-- Os mapas podem ser criados nos estilos "satélite" ou "padrão".
-
+- Parâmetros de entrada:
+dados_localizacao (um dicionário onde as chaves são caminhos de arquivos de imagem e os valores são informações de localização contendo latitude e longitude).
+tipo_mapa (uma string que pode ser "satelite" ou "padrao" para escolher o tipo de mapa).
+- Retorno: arquivo html com o mapa.
 ## Como Instalar
 
 Você pode instalar a Where-I-Went Library usando o `pip`, que é o gerenciador de pacotes Python padrão. Siga os passos abaixo para instalar a biblioteca:
