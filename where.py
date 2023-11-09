@@ -4,7 +4,7 @@ from functools import cache
 
 # Função para extrair informações de localização de uma imagem
 @cache
-def extrair_informacoes_localizacao(caminho_arquivo):
+def extrair_informacoes_localizacao(caminho_arquivo: str) -> Union[None, Tuple[float, float]]:
     with open(caminho_arquivo, 'rb') as arquivo_imagem:
         # Redireciona a saída padrão (stdout) e a saída de erro (stderr) para um objeto de captura
         saida_padrao_original = sys.stdout
@@ -39,7 +39,7 @@ def extrair_informacoes_localizacao(caminho_arquivo):
 
 # Função para ajustar as coordenadas para valores negativos, se necessário
 @cache
-def ajustar_coordenadas(latitude, longitude, referencia_latitude, referencia_longitude):
+def ajustar_coordenadas(latitude: float, longitude: float, referencia_latitude: str, referencia_longitude: str) -> Tuple[float, float]:
     # Verifique se latitude e longitude precisam ser negadas com base nos valores de referência
     if referencia_latitude == 'S':
         latitude = -latitude
@@ -49,7 +49,7 @@ def ajustar_coordenadas(latitude, longitude, referencia_latitude, referencia_lon
     return latitude, longitude
 
 # Função para criar um mapa com marcadores
-def criar_mapa(dados_localizacao, tipo_mapa):
+def criar_mapa(dados_localizacao: Dict[str, Dict[str, float]], tipo_mapa: str) -> None:
     if tipo_mapa == "satelite":
         m = folium.Map(location=[0, 0], zoom_start=2,tiles='https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', attr='Esri')
         for caminho_arquivo, informacao_localizacao in dados_localizacao.items():
